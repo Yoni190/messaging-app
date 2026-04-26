@@ -18,6 +18,30 @@ const createUser = async (username, password) => {
     return token
 }
 
+const loginUser = async (username, password) => {
+    const user = await prisma.user.findUnique({
+        where: { username }
+    })
+
+    if(!user) {
+        throw new Error('USER_NOT_FOUND')
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+
+    if(!isMatch) {
+        throw new Error('WRONG_PASSWORD')
+    }
+
+    const token = jwt.sign(
+        { id: user.id, username: user.username, createdAt: user.createdAt},
+        process.env.JWT_SECRET
+    )
+
+    return token
+}
+
 module.exports = {
-    createUser
+    createUser,
+    loginUser
 }

@@ -1,4 +1,5 @@
 const { fetchUsers, edit } = require('../services/userService')
+const { validationResult } = require('express-validator')
 
 const getUser = (req, res) => {
     const user = req.authData
@@ -18,6 +19,13 @@ const getUsers = async (req, res) => {
 }
 
 const editProfile = async (req, res) => {
+    const errors = validationResult(req)
+    if(!errors.isEmpty()) {
+        return res.status(400).json({
+            message: errors.array()[0].msg
+        })
+    }
+    
     try {
         const { username } = req.body
         const user = req.authData

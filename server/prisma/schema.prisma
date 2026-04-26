@@ -16,6 +16,6 @@ model User {
   id          Int      @id @default(autoincrement())
   username    String
   password    String
-  profile_pic String?
-  created_at  DateTime @default(now())
+  profilePic String?
+  createdAt  DateTime @default(now())
 }

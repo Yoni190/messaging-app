@@ -1,4 +1,4 @@
-const { fetchUsers } = require('../services/userService')
+const { fetchUsers, edit } = require('../services/userService')
 
 const getUser = (req, res) => {
     const user = req.authData
@@ -17,7 +17,22 @@ const getUsers = async (req, res) => {
     }
 }
 
+const editProfile = async (req, res) => {
+    try {
+        const { username } = req.body
+        const user = req.authData
+
+        const message = await edit(username, user.id)
+
+        return res.json({ message })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({ message: 'Something went wrong' })
+    }
+}
+
 module.exports = {
     getUser,
-    getUsers
+    getUsers,
+    editProfile
 }

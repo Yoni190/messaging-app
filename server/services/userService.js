@@ -13,6 +13,19 @@ const fetchUsers = async () => {
     return users
 }
 
+const edit = async (username, userId) => {
+    await prisma.user.update({
+        where: { id: userId},
+        data: {
+            username
+        }
+    })
+    
+
+    return { message: 'Updated Successfully' }
+}
+
 module.exports = {
-    fetchUsers
+    fetchUsers,
+    edit
 }

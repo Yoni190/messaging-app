@@ -6,5 +6,6 @@ const router = Router()
 
 router.get('/', verifyToken, messageController.index)
 router.get('/:senderId/:recipientId', verifyToken, messageController.getUserMessages)
+router.post('/:recipientId', verifyToken, messageController.sendMessage)
 
 module.exports = router

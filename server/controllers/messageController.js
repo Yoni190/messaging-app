@@ -1,4 +1,4 @@
-const { getMessages, fetchUserMessages } = require('../services/messageService')
+const { getMessages, fetchUserMessages, createMessage } = require('../services/messageService')
 
 const index = async (req, res) => {
     try {
@@ -25,7 +25,23 @@ const getUserMessages = async (req, res) => {
     }
 }
 
+const sendMessage = async (req, res) => {
+    try {
+        const recipientId = parseInt(req.params.recipientId)
+        const user = req.authData
+        const { message } = req.body
+
+        const result = await createMessage(user.id, recipientId, message)
+
+        return res.json({ result })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).messages({ message: 'Something went wrong' })
+    }
+}
+
 module.exports = {
     index,
-    getUserMessages
+    getUserMessages,
+    sendMessage
 }

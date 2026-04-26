@@ -35,7 +35,20 @@ const fetchUserMessages = async (senderId, recipientId) => {
     return messages
 }
 
+const createMessage = async (senderId, recipientId, message) => {
+    await prisma.message.create({
+        data: {
+            senderId,
+            recipientId,
+            message
+        }
+    })
+
+    return { message: 'Message Sent' }
+}
+
 module.exports = {
     getMessages,
-    fetchUserMessages
+    fetchUserMessages,
+    createMessage
 }

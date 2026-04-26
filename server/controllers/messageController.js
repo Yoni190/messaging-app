@@ -1,4 +1,5 @@
 const { getMessages, fetchUserMessages, createMessage } = require('../services/messageService')
+const { validationResult } = require('express-validator')
 
 const index = async (req, res) => {
     try {
@@ -26,6 +27,14 @@ const getUserMessages = async (req, res) => {
 }
 
 const sendMessage = async (req, res) => {
+    const errors = validationResult(req)
+
+    if(!errors.isEmpty()) {
+        return res.status(400).json({
+            message: errors.array()[0].msg
+        })
+    }
+
     try {
         const recipientId = parseInt(req.params.recipientId)
         const user = req.authData

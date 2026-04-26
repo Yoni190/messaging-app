@@ -3,8 +3,16 @@ const { prisma } = require('../lib/prisma')
 const bcrypt = require('bcrypt')
 const { createUser } = require('../services/authService')
 require('dotenv').config()
+const { validationResult } = require('express-validator')
 
 const register = async (req, res) => {
+    const errors = validationResult(req)
+    if(!errors.isEmpty()) {
+        return res.status(400).json({
+            message: errors.array()[0].msg
+        })
+    }
+
     try {
         const { username, password } = req.body
         const token = await createUser(username, password)

@@ -11,6 +11,7 @@ app.use(cors())
 
 app.use('/', routes.authRoute)
 app.use('/users', routes.userRoute)
+app.use('/messages', routes.messageRoute)
 
 
 const PORT = process.env.PORT || 3000

@@ -1,8 +1,4 @@
-const jwt = require('jsonwebtoken')
-const { prisma } = require('../lib/prisma')
-const bcrypt = require('bcrypt')
 const { createUser, loginUser } = require('../services/authService')
-require('dotenv').config()
 const { validationResult } = require('express-validator')
 
 const register = async (req, res) => {
@@ -32,7 +28,7 @@ const login = async (req, res) => {
         })
     }
 
-    
+
     try {
         const { username, password } = req.body
         const token = await loginUser(username, password)

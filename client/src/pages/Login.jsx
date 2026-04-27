@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
+import { useAuth } from '../../hooks/useAuth'
+
 
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: ""
   })
+
+  const navigate = useNavigate()
+  const { login } = useAuth()
 
   const API_URL=import.meta.env.VITE_API_URL
 
@@ -22,7 +28,9 @@ const Login = () => {
       })
 
       const data = await res.json()
-      localStorage.setItem('token', data.token)
+      console.log(data.token)
+      login(data.token)
+      navigate('/home')
     } catch (error) {
       console.error(error)
     }

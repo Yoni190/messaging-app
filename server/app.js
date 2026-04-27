@@ -9,9 +9,9 @@ app.use(express.json())
 app.use(cors())
 
 
-app.use('api/', routes.authRoute)
-app.use('api/users', routes.userRoute)
-app.use('api/messages', routes.messageRoute)
+app.use('/api', routes.authRoute)
+app.use('/api/users', routes.userRoute)
+app.use('/api/messages', routes.messageRoute)
 
 
 const PORT = process.env.PORT || 3000

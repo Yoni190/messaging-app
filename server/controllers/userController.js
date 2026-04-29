@@ -1,7 +1,7 @@
-const { fetchUsers, edit } = require('../services/userService')
+const { fetchUsers, edit, fetchUser } = require('../services/userService')
 const { validationResult } = require('express-validator')
 
-const getUser = (req, res) => {
+const getAuthUser = (req, res) => {
     const user = req.authData
 
     return res.json({ user })
@@ -12,6 +12,18 @@ const getUsers = async (req, res) => {
         const users = await fetchUsers()
 
         return res.json({ users })
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({ message: 'Something went wrong' })
+    }
+}
+
+const getUser = async (req, res) => {
+    try {
+        const userId = parseInt(req.params.id)
+        const user = await fetchUsers(userId)
+
+        return res.json({ user })
     } catch (error) {
         console.error(error)
         return res.status(500).json({ message: 'Something went wrong' })
@@ -40,6 +52,7 @@ const editProfile = async (req, res) => {
 }
 
 module.exports = {
+    getAuthUser,
     getUser,
     getUsers,
     editProfile

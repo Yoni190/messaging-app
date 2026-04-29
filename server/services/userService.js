@@ -22,6 +22,8 @@ const fetchUser = async (userId) => {
             createdAt: true
         }
     })
+
+    return user
 }
 
 const edit = async (username, userId) => {

@@ -1,10 +1,13 @@
-import { BrowserRouter, Routes, Route } from 'react-router'
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ProtectedRoute from './components/ProtectedRoute'
 import Home from './pages/Home'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
+import Chat from './pages/Chat'
+
+
 
 function AppLayout() {
   return (
@@ -13,7 +16,7 @@ function AppLayout() {
       <main className="flex-grow flex">
         <Sidebar />
         <div className="flex-grow">
-          <Home />
+          <Outlet />
         </div>
       </main>
     </div>
@@ -28,13 +31,15 @@ function App() {
         <Route path='/register' element={<Register />} />
 
         <Route
-          path='/home'
           element={
             <ProtectedRoute>
               <AppLayout />
             </ProtectedRoute>
           }
-        />
+          >
+            <Route path='/home' element={<Home />} />
+            <Route path='/chat/:id' element={<Chat />} />
+          </Route>
       </Routes>
     </BrowserRouter>
   )

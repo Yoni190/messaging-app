@@ -59,6 +59,7 @@ const Chat = () => {
 
                 const data = await res.json()
                 setMessages(data.messages)
+                console.log(data.messages)
             } catch (error) {
                 console.error(error)
             }
@@ -75,7 +76,8 @@ const Chat = () => {
         <ChatHeader userName={user.username}/>
         <div>
             {messages.map((message) => (
-                <div>
+                <div key={message.id}>
+                    <p className={message.recipientId === authUser.id ? 'text-left' : 'text-right'}>{message.message}</p>
                 </div>
             ))}
         </div>

@@ -8,6 +8,7 @@ const Login = () => {
     username: "",
     password: ""
   })
+  const [errors, setErrors] = useState([])
 
   const navigate = useNavigate()
   const { login } = useAuth()
@@ -17,6 +18,20 @@ const Login = () => {
   
   const handleLogin = async (e) => {
     e.preventDefault()
+
+    const newErrors = []
+
+    if(!formData.username) {
+      newErrors.push('Please enter your username.')
+    } 
+    if(!formData.password) {
+      newErrors.push('Please enter your password.')
+    }
+
+    if(newErrors.length > 0) {
+      setErrors(newErrors)
+      return
+    }
 
     try {
       const res = await fetch(`${API_URL}/login`, {
@@ -63,6 +78,12 @@ const Login = () => {
             <button className='border p-1'>
               Login
             </button>
+
+            {errors.map((error, index) => (
+              <ul key={index}>
+                <li className='text-red-500'>{error}</li>
+              </ul>
+            ))}
         </form>
     </div>
   )

@@ -44,7 +44,7 @@ const Chat = () => {
 
       getUser()
       getAuthUser()
-    }, [])
+    }, [id])
 
     useEffect(() => {
         if(!user.id || !authUser.id) return

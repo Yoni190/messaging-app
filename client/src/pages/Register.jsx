@@ -6,12 +6,28 @@ const Register = () => {
         username: "",
         password: ""
       })
+
+    const [errors, setErrors] = useState([])
     
     const API_URL=import.meta.env.VITE_API_URL
 
     
     const handleRegister = async (e) => {
     e.preventDefault()
+
+    const newErrors = []
+
+    if(!formData.username) {
+      newErrors.push('Please enter your username.')
+    } 
+    if(!formData.password) {
+      newErrors.push('Please enter your password.')
+    }
+
+    if(newErrors.length > 0) {
+      setErrors(newErrors)
+      return
+    }
 
     try {
         const res = await fetch(`${API_URL}/register`, {
@@ -55,6 +71,12 @@ const Register = () => {
             <button className='border p-1'>
               Register
             </button>
+
+            {errors.map((error, index) => (
+              <ul key={index}>
+                <li className='text-red-500'>{error}</li>
+              </ul>
+            ))}
         </form>
     </div>
   )

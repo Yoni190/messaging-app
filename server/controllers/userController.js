@@ -21,7 +21,7 @@ const getUsers = async (req, res) => {
 const getUser = async (req, res) => {
     try {
         const userId = parseInt(req.params.id)
-        const user = await fetchUsers(userId)
+        const user = await fetchUser(userId)
 
         return res.json({ user })
     } catch (error) {

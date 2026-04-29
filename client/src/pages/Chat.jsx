@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import ChatHeader from '../components/ChatHeader'
+
 
 const Chat = () => {
     const { id } = useParams()
@@ -69,7 +71,15 @@ const Chat = () => {
     
     
   return (
-    <div>Chat</div>
+    <div>
+        <ChatHeader userName={user.username}/>
+        <div>
+            {messages.map((message) => (
+                <div>
+                </div>
+            ))}
+        </div>
+    </div>
   )
 }
 

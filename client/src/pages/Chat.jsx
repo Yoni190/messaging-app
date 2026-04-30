@@ -85,7 +85,7 @@ const Chat = () => {
   return (
     <div>
         <ChatHeader userName={user.username}/>
-        <div>
+        <div className='p-4'>
             {messages.map((message) => (
                 <div key={message.id}>
                     <div className={message.recipientId === authUser.id ? 'text-left' : 'text-right'}>
@@ -94,6 +94,12 @@ const Chat = () => {
                     </div>
                 </div>
             ))}
+            <input 
+                type="text"
+                name="message"
+                id="message"
+                placeholder='Write your message...' 
+                className='border p-2 rounded'/>
         </div>
     </div>
   )

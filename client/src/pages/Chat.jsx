@@ -70,7 +70,7 @@ const Chat = () => {
                         time: `${hours}:${minutes}`
                     }
                 })
-                setMessages(data.result)
+                setMessages(result)
             } catch (error) {
                 console.error(error)
             }
@@ -90,7 +90,7 @@ const Chat = () => {
                 <div key={message.id}>
                     <div className={message.recipientId === authUser.id ? 'text-left' : 'text-right'}>
                         <p>{message.message}</p>
-                        <p>{message.createdAt}</p>
+                        <p>{message.time}</p>
                     </div>
                 </div>
             ))}

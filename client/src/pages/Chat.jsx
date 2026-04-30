@@ -58,8 +58,19 @@ const Chat = () => {
                 })
 
                 const data = await res.json()
-                setMessages(data.messages)
-                console.log(data.messages)
+                
+                const result = data.messages.map(item => {
+                    const date = new Date(item.createdAt)
+
+                    const hours = String(date.getHours()).padStart(2, '0')
+                    const minutes = String(date.getMinutes()).padStart(2, '0')
+
+                    return { 
+                        ...item,
+                        time: `${hours}:${minutes}`
+                    }
+                })
+                setMessages(data.result)
             } catch (error) {
                 console.error(error)
             }
@@ -77,7 +88,10 @@ const Chat = () => {
         <div>
             {messages.map((message) => (
                 <div key={message.id}>
-                    <p className={message.recipientId === authUser.id ? 'text-left' : 'text-right'}>{message.message}</p>
+                    <div className={message.recipientId === authUser.id ? 'text-left' : 'text-right'}>
+                        <p>{message.message}</p>
+                        <p>{message.createdAt}</p>
+                    </div>
                 </div>
             ))}
         </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ChatHeader from '../components/ChatHeader'
+import { SendHorizontal } from 'lucide-react'
 
 
 const Chat = () => {
@@ -9,6 +10,7 @@ const Chat = () => {
     const [user, setUser] = useState({})
     const [authUser, setAuthUser] = useState({})
     const [messages, setMessages] = useState([])
+    const [message, setMessage] = useState('')
     const token = localStorage.getItem('token')
 
     useEffect(() => {
@@ -81,7 +83,9 @@ const Chat = () => {
     
 
     
-    
+    const sendMessage = () => {
+        console.log(message)
+    }
   return (
     <div>
         <ChatHeader userName={user.username}/>
@@ -94,12 +98,19 @@ const Chat = () => {
                     </div>
                 </div>
             ))}
-            <input 
-                type="text"
-                name="message"
-                id="message"
-                placeholder='Write your message...' 
-                className='border p-2 rounded'/>
+            <div className='flex items-center'>
+                <input
+                    type="text"
+                    name="message"
+                    id="message"
+                    placeholder='Write your message...'
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className='border p-2 rounded'/>
+                <button className='border p-2 rounded-full' onClick={sendMessage}>
+                    <SendHorizontal />
+                </button>
+            </div>
         </div>
     </div>
   )

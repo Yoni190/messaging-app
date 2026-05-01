@@ -13,7 +13,7 @@ const createUser = async (username, password) => {
         }
     })
 
-    const token = jwt.sign({ user }, process.env.JWT_SECRET)
+    const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '24h' })
 
     return token
 }
@@ -35,7 +35,8 @@ const loginUser = async (username, password) => {
 
     const token = jwt.sign(
         { id: user.id, username: user.username, createdAt: user.createdAt},
-        process.env.JWT_SECRET
+        process.env.JWT_SECRET,
+        { expiresIn: '24h' }
     )
 
     return token

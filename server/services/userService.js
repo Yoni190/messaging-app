@@ -43,8 +43,17 @@ const edit = async (username, userId) => {
     return { message: 'Updated Successfully' }
 }
 
+const fetchAuthUser = async (userId) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId }
+    })
+
+    return user
+}
+
 module.exports = {
     fetchUsers,
     fetchUser,
-    edit
+    edit,
+    fetchAuthUser
 }

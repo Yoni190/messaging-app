@@ -1,8 +1,10 @@
-const { fetchUsers, edit, fetchUser } = require('../services/userService')
+const { fetchUsers, edit, fetchUser, fetchAuthUser } = require('../services/userService')
 const { validationResult } = require('express-validator')
 
-const getAuthUser = (req, res) => {
-    const user = req.authData
+const getAuthUser = async (req, res) => {
+    const userId = req.authData.id
+
+    const user = await fetchAuthUser(userId)
 
     return res.json({ user })
 }

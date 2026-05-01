@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import Chat from './pages/Chat'
 import Profile from './pages/Profile'
+import EditProfile from './pages/EditProfile'
 
 
 
@@ -42,6 +43,7 @@ function App() {
             <Route path='/home' element={<Home />} />
             <Route path='/chat/:id' element={<Chat />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/edit-profile' element={<EditProfile />} />
           </Route>
       </Routes>
     </BrowserRouter>

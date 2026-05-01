@@ -88,6 +88,7 @@ const Chat = () => {
 
             const data = await res.json()
             console.log(data)
+            setMessage('')
             getMessages()
         } catch (error) {
             console.error(error)

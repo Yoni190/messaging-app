@@ -48,35 +48,36 @@ const Chat = () => {
       getAuthUser()
     }, [id])
 
+
+    const getMessages = async () => {
+        try {
+            const res = await fetch(`${API_URL}/messages/${authUser.id}/${user.id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            const data = await res.json()
+            
+            const result = data.messages.map(item => {
+                const date = new Date(item.createdAt)
+
+                const hours = String(date.getHours()).padStart(2, '0')
+                const minutes = String(date.getMinutes()).padStart(2, '0')
+
+                return { 
+                    ...item,
+                    time: `${hours}:${minutes}`
+                }
+            })
+            setMessages(result)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     useEffect(() => {
         if(!user.id || !authUser.id) return
-      
-        const getMessages = async () => {
-            try {
-                const res = await fetch(`${API_URL}/messages/${authUser.id}/${user.id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-
-                const data = await res.json()
-                
-                const result = data.messages.map(item => {
-                    const date = new Date(item.createdAt)
-
-                    const hours = String(date.getHours()).padStart(2, '0')
-                    const minutes = String(date.getMinutes()).padStart(2, '0')
-
-                    return { 
-                        ...item,
-                        time: `${hours}:${minutes}`
-                    }
-                })
-                setMessages(result)
-            } catch (error) {
-                console.error(error)
-            }
-        }
 
         getMessages()
     }, [user.id, authUser.id])
@@ -98,6 +99,7 @@ const Chat = () => {
 
             const data = await res.json()
             console.log(data)
+            getMessages()
         } catch (error) {
             console.error(error)
         }

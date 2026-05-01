@@ -65,9 +65,15 @@ const Chat = () => {
                 const hours = String(date.getHours()).padStart(2, '0')
                 const minutes = String(date.getMinutes()).padStart(2, '0')
 
+                const day = String(date.getDate()).padStart(2, '0')
+                const month = String(date.getMonth() + 1).padStart(2, '0')
+                const year = date.getFullYear()
+                console.log(day, month, year)
+
                 return { 
                     ...item,
-                    time: `${hours}:${minutes}`
+                    time: `${hours}:${minutes}`,
+                    date: `${day}-${month}-${year}`
                 }
             })
             setMessages(result)
@@ -112,7 +118,9 @@ const Chat = () => {
                 <div key={message.id}>
                     <div className={message.recipientId === authUser.id ? 'text-left' : 'text-right'}>
                         <p>{message.message}</p>
-                        <p>{message.time}</p>
+                        <div>
+                            <p>{message.date} {message.time}</p>
+                        </div>
                     </div>
                 </div>
             ))}

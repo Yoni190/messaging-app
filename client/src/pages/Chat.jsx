@@ -83,8 +83,24 @@ const Chat = () => {
     
 
     
-    const sendMessage = () => {
-        console.log(message)
+    const sendMessage = async () => {
+        try {
+            const res = await fetch(`${API_URL}/messages/${user.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer: ${token}`
+                },
+                body: JSON.stringify({
+                    message
+                })
+            })
+
+            const data = await res.json()
+            console.log(data)
+        } catch (error) {
+            console.error(error)
+        }
     }
   return (
     <div>

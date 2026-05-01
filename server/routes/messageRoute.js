@@ -6,7 +6,6 @@ const validateMessage = require('../validators/validateMessage')
 const router = Router()
 
 router.get('/', verifyToken, messageController.index)
-//Use req.authData to get the senderId
 router.get('/:recipientId', verifyToken, messageController.getUserMessages)
 router.post('/:recipientId', verifyToken, validateMessage, messageController.sendMessage)
 

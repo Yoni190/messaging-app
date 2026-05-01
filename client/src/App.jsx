@@ -6,6 +6,8 @@ import Home from './pages/Home'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import Chat from './pages/Chat'
+import Profile from './pages/Profile'
+
 
 
 
@@ -39,6 +41,7 @@ function App() {
           >
             <Route path='/home' element={<Home />} />
             <Route path='/chat/:id' element={<Chat />} />
+            <Route path='/profile' element={<Profile />} />
           </Route>
       </Routes>
     </BrowserRouter>

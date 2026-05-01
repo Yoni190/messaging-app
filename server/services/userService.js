@@ -1,8 +1,13 @@
 const { prisma } = require('../lib/prisma')
 
 
-const fetchUsers = async () => {
+const fetchUsers = async (userId) => {
     const users = await prisma.user.findMany({
+        where: {
+            NOT: {
+                id: userId
+            }
+        },
         select: {
             id: true,
             username: true,

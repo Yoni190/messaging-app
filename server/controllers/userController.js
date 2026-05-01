@@ -8,8 +8,9 @@ const getAuthUser = (req, res) => {
 }
 
 const getUsers = async (req, res) => {
+    const user = req.authData
     try {
-        const users = await fetchUsers()
+        const users = await fetchUsers(user.id)
 
         return res.json({ users })
     } catch (error) {

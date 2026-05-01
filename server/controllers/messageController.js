@@ -14,7 +14,7 @@ const index = async (req, res) => {
 
 const getUserMessages = async (req, res) => {
     try {
-        const senderId = parseInt(req.params.senderId)
+        const senderId = req.authData.id
         const recipientId = parseInt(req.params.recipientId)
 
         const messages = await fetchUserMessages(senderId, recipientId)

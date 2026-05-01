@@ -7,7 +7,7 @@ const router = Router()
 
 router.get('/', verifyToken, messageController.index)
 //Use req.authData to get the senderId
-router.get('/:senderId/:recipientId', verifyToken, messageController.getUserMessages)
+router.get('/:recipientId', verifyToken, messageController.getUserMessages)
 router.post('/:recipientId', verifyToken, validateMessage, messageController.sendMessage)
 
 module.exports = router

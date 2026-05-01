@@ -8,7 +8,6 @@ const Chat = () => {
     const { id } = useParams()
     const API_URL=import.meta.env.VITE_API_URL
     const [user, setUser] = useState({})
-    const [authUser, setAuthUser] = useState({})
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState('')
     const token = localStorage.getItem('token')
@@ -29,29 +28,13 @@ const Chat = () => {
         }
       }
 
-      const getAuthUser = async () => {
-        try {
-            const res = await fetch(`${API_URL}/users/profile`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-
-            const data = await res.json()
-            setAuthUser(data.user)
-        } catch (error) {
-            console.error(error)
-        }
-      }
-
       getUser()
-      getAuthUser()
     }, [id])
 
 
     const getMessages = async () => {
         try {
-            const res = await fetch(`${API_URL}/messages/${authUser.id}/${user.id}`, {
+            const res = await fetch(`${API_URL}/messages/${user.id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -83,10 +66,10 @@ const Chat = () => {
     }
 
     useEffect(() => {
-        if(!user.id || !authUser.id) return
+        if(!user.id) return
 
         getMessages()
-    }, [user.id, authUser.id])
+    }, [user.id])
     
 
     
@@ -116,7 +99,7 @@ const Chat = () => {
         <div className='p-4'>
             {messages.map((message) => (
                 <div key={message.id}>
-                    <div className={message.recipientId === authUser.id ? 'text-left' : 'text-right'}>
+                    <div className={message.senderId === user.id ? 'text-left' : 'text-right'}>
                         <p>{message.message}</p>
                         <div>
                             <p>{message.date} {message.time}</p>
